@@ -1,5 +1,8 @@
-const { contextBridge, ipcRenderer } = require("electron");
+const { contextBridge, ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld("openPage", 
-    (pageName) => ipcRenderer.invoke("window:open-page", pageName)
-);
+contextBridge.exposeInMainWorld('electronAPI', {
+    openPage: (pageName) => ipcRenderer.invoke('window:open-page', pageName),
+    goHome: () => ipcRenderer.invoke('window:open-page', 'index.html'),
+    saveProduct: (data) => ipcRenderer.invoke('product:save', data),
+    savecliente: (data) => ipcRenderer.invoke('cliente:save', data),
+});
