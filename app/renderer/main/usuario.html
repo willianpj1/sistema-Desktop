@@ -13,15 +13,15 @@
     <div class="container py-4">
         <div class="mb-3">
             <button class="btn btn-secondary me-2" onclick="window.electronAPI.goHome()">Home</button>
-            <button class="btn btn-outline-secondary" onclick="window.electronAPI.openPage('listacliente.html')">Lista de cliente</button>
+            <button class="btn btn-outline-secondary" onclick="window.electronAPI.openPage('listausuario.html')">Lista de Usuarios</button>
         </div>
 
         <div class="card shadow-sm" style="max-width: 400px;">
             <div class="card-body">
-                <h5 class="card-title mb-4">Cadastro de Cliente</h5>
+                <h5 class="card-title mb-4">Cadastro de Usuarios</h5>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Nome do cliente" id="name">
+                    <input type="text" class="form-control" placeholder="Nome do usuario" id="name">
                 </div>
 
                 <div class="mb-3">
@@ -32,13 +32,13 @@
                     <input type="text" class="form-control" placeholder="Telefone" id="telefone">
                 </div>
 
-                <button id="save-button" class="btn btn-primary w-100">Cadastrar cliente</button>
+                <button id="save-button" class="btn btn-primary w-100">Cadastrar Usuario</button>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="cliente.js"></script>
+    <script src="usuario.js"></script>
 </body>
 
 </html>
