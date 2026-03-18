@@ -55,11 +55,14 @@ export default class MainWindowFactory {
         ipcMain.handle('cliente:save', async (_event, data) => {
             return await ClienteRepository.insert(data);
         });
-         ipcMain.handle('usuario:save', async (_event, data) => {
+        ipcMain.handle('usuario:save', async (_event, data) => {
             return await UsuarioRepository.insert(data);
         });
         ipcMain.handle('fornecedor:save', async (_event, data) => {
             return await FornecedorRepository.insert(data);
+        });
+        ipcMain.handle('product:search', async (_event, data) => {
+            return await ProductRepository.search(data);
         });
         // Carrega o arquivo index.html na janela assim que ela é criada, exibindo a tela inicial
         mainWindow.loadFile(path.join(PAGES_DIR, 'index.html'));

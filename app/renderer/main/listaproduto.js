@@ -10,18 +10,26 @@ const table = new DataTable('#tabela', {
             offset: data?.start,              //A pesquisa inicia no registro Ex: 5, 10
             orderType: data?.order[0]?.dir,         //Tipo de ordenação
             column: data?.order[0]?.column    //Coluna a ser filtrada
-        } 
-        const response = await window.electronAPI.searchProducts(filter);
-        callback({
-            draw: response?.draw ?? data?.draw ?? 0,
-            recordTotal: response?.recordTotal ?? 0,
-            recordFiltred: response?.recordFiltred ?? 0,
-            data: response?.data ?? []
-        });
+        }
+        try {
+            const response = await window.electronAPI.searchProducts(filter);
+            callback({
+                draw: response?.draw ?? data?.draw ?? 0,
+                recordTotal: response?.recordTotal ?? 0,
+                recordFiltred: response?.recordFiltred ?? 0,
+                data: response?.data ?? []
+            });
+
+        } catch (error) {
+            console.error('Restrição: ')
+            column: [
+                { data: 'id', title: 'Código' },
+                { data: 'name', title: 'Nome' },
+                { data: 'price', title: 'Preço de venda' },
+            ]
+
+        }
+
     },
-    column: [
-        {data:'id', title: 'Código'},
-        {data:'name', title:'Nome'},
-        {data:'price', title:'Preço de venda'},
-    ]
+
 });
