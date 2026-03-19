@@ -13,7 +13,7 @@
     <div class="container py-4">
         <div class="mb-3">
             <button class="btn btn-secondary me-2" onclick="window.electronAPI.goHome()">Home</button>
-            <button class="btn btn-outline-secondary" onclick="window.electronAPI.openPage('listacliente.html')">Lista
+            <button class="btn btn-outline-secondary" onclick="window.electronAPI.openPage('listafornecedor.html')">Lista
                 de fornecedores</button>
         </div>
 
@@ -27,6 +27,10 @@
 
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="CPF" id="cpf_cnpj">
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Telefone" id="telefone">
                 </div>
 
                 <button id="save-button" class="btn btn-primary w-100">Cadastrar Fornecedor</button>

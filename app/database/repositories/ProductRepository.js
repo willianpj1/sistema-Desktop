@@ -1,7 +1,7 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
+import { ilike, or, sql, asc } from 'drizzle-orm';
 import Connection from '../Connection.js';
 import { products } from '../schema.js';
-import { ilike, or, sql, asc, count } from 'drizzle-orm';
 
 export default class ProductRepository {
     static async insert(data) {
@@ -17,19 +17,42 @@ export default class ProductRepository {
             client.release();
         }
     }
-    static async search(data){
+    static async search(data) {
+        //Captura o termo de pesquisa sem o %%
         const rawSearch = String(data?.term ?? '').trim();
-        const terms = '%${data?.term}%';
-        const client =await Connection.connect();
-        const db = drizzle(client);
+        //Captura o termo da pesquisa já aplicando o %%
+        const terms = `%${data?.term}%`;
         try {
-            const whereClause = 
+            //Abre a conexão com banco de dados
+            const client = await Connection.connect();
+            const db = drizzle(client);
+            const whereClause =
                 rawSearch !== ''
                     ? or(
-                        sql´´
+                        sql`${products.id}::text ILIKE ${terms}`,
+                        ilike(products.name, terms),
+                        sql`${products.price}::text ILIKE ${terms}`
                     )
+                    : undefined;
+
+            const result = await db
+                .select()
+                .from(products)
+                .where(whereClause)
+                .orderBy(asc(products.name))
+                .offset(data?.offset)
+                .limit(data?.limit);
+
+            return {
+                data: result
+            };
         } catch (error) {
-            
+            console.error('[ProductRepository] Erro na busca:', error.message);
+            return {
+                recordsTotal: 0,
+                recordsFiltered: 0,
+                data: [],
+            };
         }
     }
 }

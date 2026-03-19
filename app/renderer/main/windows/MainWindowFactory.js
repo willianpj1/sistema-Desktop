@@ -64,6 +64,15 @@ export default class MainWindowFactory {
         ipcMain.handle('product:search', async (_event, data) => {
             return await ProductRepository.search(data);
         });
+        ipcMain.handle('usuario:search', async (_event, data) => {
+            return await UsuarioRepository.search(data);
+        });
+        ipcMain.handle('cliente:search', async (_event, data) => {
+            return await ClienteRepository.search(data);
+        });
+        ipcMain.handle('fornecedor:search', async (_event, data) => {
+            return await FornecedorRepository.search(data);
+        });
         // Carrega o arquivo index.html na janela assim que ela é criada, exibindo a tela inicial
         mainWindow.loadFile(path.join(PAGES_DIR, 'index.html'));
         // Retorna a instância da janela criada para que possa ser referenciada em outros lugares da aplicação
